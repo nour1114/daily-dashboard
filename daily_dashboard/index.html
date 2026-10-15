@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#7667f4">
+  <meta name="description" content="A personal daily dashboard with tasks, deadlines, weather, and inspiration.">
+  <title>Daylight — Daily Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Daylight home"><span class="brand-mark">✳</span><span>daylight<span class="brand-dot">.</span></span></a>
+      <p class="nav-label">YOUR SPACE</p>
+      <nav class="main-nav">
+        <a class="nav-link active" href="#home"><span>⌂</span> Overview</a>
+        <a class="nav-link" href="#tasks"><span>✓</span> My tasks</a>
+        <a class="nav-link" href="#deadlines"><span>◷</span> Deadlines</a>
+        <a class="nav-link" href="#weather"><span>☼</span> Weather</a>
+        <a class="nav-link" href="#inspiration"><span>↗</span> Inspiration</a>
+      </nav>
+      <div class="sidebar-note">
+        <span class="note-spark">✦</span>
+        <p class="note-title">Small steps count.</p>
+        <p class="note-copy">You don't have to do everything. Just the next thing.</p>
+      </div>
+      <div class="sidebar-footer"><span class="status-dot"></span> Your day, your pace</div>
+    </aside>
+
+    <main id="home" class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb">YOUR PERSONAL SPACE <span>/</span> OVERVIEW</div>
+        <div class="top-actions">
+          <span class="today-chip"><span class="status-dot"></span> YOUR DASHBOARD</span>
+          <button id="themeToggle" class="icon-button" type="button" aria-label="Switch to dark mode" title="Toggle light/dark mode"><span id="themeIcon">☾</span></button>
+        </div>
+      </header>
+
+      <section class="welcome-row" aria-labelledby="welcomeTitle">
+        <div>
+          <p class="eyebrow" id="greeting">A FRESH START</p>
+          <h1 id="welcomeTitle">Make today <span class="highlight">count.</span></h1>
+          <p class="welcome-copy">A little structure, a little breathing room. You've got this.</p>
+        </div>
+        <div class="date-card"><span class="date-icon">▦</span><div><span class="date-caption">TODAY IS</span><strong id="fullDate">Loading date…</strong></div></div>
+      </section>
+
+      <section class="hero-grid" aria-label="Current time and daily inspiration">
+        <article class="panel clock-panel">
+          <div class="panel-heading"><span class="section-icon purple">◷</span><span>THE TIME IS YOURS</span><span class="live-pill"><span></span> LIVE</span></div>
+          <div id="clock" class="clock" aria-live="off">00:00<span>:00</span></div>
+          <div class="clock-bottom"><span id="clockPeriod">LOCAL TIME</span><span class="clock-line"></span><span id="timezone">YOUR TIMEZONE</span></div>
+          <div class="clock-decoration" aria-hidden="true">✳</div>
+        </article>
+        <article class="panel quote-panel" id="inspiration">
+          <div class="panel-heading"><span class="section-icon yellow">✦</span><span>A THOUGHT TO KEEP</span></div>
+          <div class="quote-mark">“</div>
+          <blockquote id="dailyQuote">The secret of getting ahead is getting started.</blockquote>
+          <p class="quote-author">— MARK TWAIN</p>
+          <button id="newQuote" class="text-button" type="button">Another thought <span>↗</span></button>
+        </article>
+      </section>
+
+      <section class="section-block" id="tasks" aria-labelledby="tasksTitle">
+        <div class="section-title-row"><div><p class="eyebrow">TURN PLANS INTO PROGRESS</p><h2 id="tasksTitle">Your to-do list <span class="title-count" id="taskCount">0</span></h2></div><span class="muted-label">SAVED ON THIS DEVICE</span></div>
+        <div class="tasks-layout">
+          <article class="panel task-panel">
+            <form id="taskForm" class="add-form">
+              <label class="sr-only" for="taskInput">Add a task</label>
+              <input id="taskInput" name="task" type="text" maxlength="120" placeholder="What's one thing you want to get done?" required>
+              <button class="primary-button" type="submit"><span>＋</span> Add task</button>
+            </form>
+            <div class="task-toolbar"><span id="taskSummary">Your next small win is waiting.</span><button id="clearCompleted" class="subtle-button" type="button">Clear completed</button></div>
+            <ul id="taskList" class="task-list" aria-live="polite"><li class="empty-state">Add your first task above. Future you says thanks. ✨</li></ul>
+          </article>
+          <article class="panel focus-panel">
+            <div class="panel-heading"><span class="section-icon pink">◎</span><span>FOCUS CHECK</span></div>
+            <p class="focus-big" id="focusPercent">0<span>%</span></p>
+            <p class="focus-caption">of your tasks completed</p>
+            <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+            <p class="focus-footnote">Progress is progress, no matter the size.</p>
+            <div class="focus-stamp">✦</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block" id="deadlines" aria-labelledby="deadlinesTitle">
+        <div class="section-title-row"><div><p class="eyebrow">FUTURE YOU WILL BE GLAD</p><h2 id="deadlinesTitle">Deadline tracker <span class="title-count" id="deadlineCount">0</span></h2></div><span class="muted-label">LIVE COUNTDOWNS</span></div>
+        <article class="panel deadline-panel">
+          <form id="deadlineForm" class="deadline-form">
+            <div class="field-group deadline-name-field"><label for="deadlineName">Assignment name</label><input id="deadlineName" type="text" maxlength="100" placeholder="e.g. Web development project" required></div>
+            <div class="field-group"><label for="deadlineDate">Due date</label><input id="deadlineDate" type="date" required></div>
+            <div class="field-group"><label for="deadlineTime">Due time</label><input id="deadlineTime" type="time" value="23:59" required></div>
+            <button class="primary-button deadline-add" type="submit">＋ Add deadline</button>
+          </form>
+          <div id="deadlineList" class="deadline-list"><p class="empty-state">No deadlines yet. Add one to start your countdown.</p></div>
+        </article>
+      </section>
+
+      <section class="section-block" id="weather" aria-labelledby="weatherTitle">
+        <div class="section-title-row"><div><p class="eyebrow">LOOK OUTSIDE, PLAN AHEAD</p><h2 id="weatherTitle">Your weather</h2></div><span class="muted-label">POWERED BY OPEN-METEO</span></div>
+        <div class="weather-grid">
+          <article class="panel weather-main">
+            <div class="weather-top"><div><p class="weather-location">⌖ <span id="weatherCity">Cairo, Egypt</span></p><p class="weather-condition" id="weatherCondition">Checking the sky…</p></div><div class="weather-art" id="weatherArt" aria-hidden="true">☀</div></div>
+            <div class="weather-temperature"><span id="temperature">--</span><sup>°C</sup></div>
+            <p class="weather-range" id="weatherRange">Fetching today's forecast</p>
+            <div class="weather-stats"><div><span>FEELS LIKE</span><strong id="feelsLike">--°</strong></div><div><span>WIND</span><strong id="windSpeed">-- km/h</strong></div><div><span>HUMIDITY</span><strong id="humidity">--%</strong></div></div>
+            <p class="weather-credit" id="weatherStatus" role="status">Weather data loads from the free Open-Meteo API.</p>
+          </article>
+          <article class="panel forecast-panel"><div class="panel-heading"><span class="section-icon yellow">☼</span><span>THE NEXT FEW HOURS</span></div><div id="hourlyForecast" class="hourly-forecast"><p class="muted-copy">Forecast loading…</p></div><button id="refreshWeather" class="text-button" type="button">Refresh weather ↻</button></article>
+        </div>
+      </section>
+
+      <section class="section-block extras-grid" aria-label="Media and quick reminders">
+        <article class="panel video-panel"><div class="panel-heading"><span class="section-icon purple">▶</span><span>A QUICK RESET</span></div><h2>A little inspiration goes a long way.</h2><p class="muted-copy">Take a short break, reset your focus, and come back to your next step.</p><div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/ZXsQAXx_ao0" title="Motivational video: Just do it" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p class="media-caption">Embedded video · YouTube</p></article>
+        <article class="panel audio-panel"><div class="panel-heading"><span class="section-icon pink">♫</span><span>YOUR MINI BREAK</span></div><div class="audio-art" aria-hidden="true"><span>♫</span><span>♪</span><span>♬</span><span>♫</span></div><h2>Press play. Take a breath.</h2><p class="muted-copy">A sample audio track for a tiny reset between tasks.</p><audio controls preload="none"><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">Your browser does not support the audio player.</audio><p class="media-caption">Audio sample · SoundHelix</p><div class="gentle-reminder"><span>✦</span><p><strong>Friendly reminder</strong><br>You can be ambitious and still take a break.</p></div></article>
+      </section>
+
+      <footer class="footer"><a class="footer-brand" href="#home">✳ daylight.</a><span>Made for your everyday wins.</span><a href="#home">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <noscript><p class="noscript">Please enable JavaScript to use the live clock, tasks, countdowns, theme switch, and weather widget.</p></noscript>
+</body>
+</html>
